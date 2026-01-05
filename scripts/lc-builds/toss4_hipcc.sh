@@ -37,7 +37,7 @@ else
 fi
 
 BUILD_SUFFIX=lc_toss4-hipcc-${COMP_VER}-${COMP_ARCH}
-RAJA_HOST_CONFIG=../tpl/RAJA/host-configs/lc-builds/toss4/${HOSTCONFIG}.cmake
+RAJA_HOSTCONFIG=../tpl/RAJA/host-configs/lc-builds/toss4/${HOSTCONFIG}.cmake
 
 echo
 echo "Creating build directory build_${BUILD_SUFFIX} and generating configuration in it"
@@ -52,11 +52,11 @@ rm -rf build_${BUILD_SUFFIX} >/dev/null
 mkdir build_${BUILD_SUFFIX} && cd build_${BUILD_SUFFIX}
 
 
-module load cmake/3.24.2
+#module load cmake/3.29.2
 
 # unload rocm to avoid configuration problems where the loaded rocm and COMP_VER
 # are inconsistent causing the rocprim from the module to be used unexpectedly
-module unload rocm
+#module unload rocm
 
 
 cmake \
@@ -72,7 +72,7 @@ cmake \
   -DBLT_CXX_STD=c++17 \
   -C ${RAJA_HOSTCONFIG} \
   -DENABLE_HIP=ON \
-  -DENABLE_OPENMP=ON \
+  -DENABLE_OPENMP=OFF \
   -DENABLE_CUDA=OFF \
   -DCMAKE_INSTALL_PREFIX=../install_${BUILD_SUFFIX} \
   "$@" \
